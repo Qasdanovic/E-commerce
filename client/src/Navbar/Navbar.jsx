@@ -10,7 +10,7 @@ export default function Navbar() {
         userId ? (
           <header className="bg-white shadow">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <Link href="/" className="text-3xl font-bold text-indigo-600">ShopEasy</Link>
+          <Link to="/" className="text-3xl font-bold text-indigo-600">ShopEasy</Link>
           <nav className="flex space-x-6">
             <Link to="#" className="text-gray-600 hover:text-indigo-600">Home</Link>
             <Link to="#" className="text-gray-600 hover:text-indigo-600">Shop</Link>
@@ -23,7 +23,7 @@ export default function Navbar() {
         ) : (
           <header className="bg-white shadow">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <Link href="/" className="text-3xl font-bold text-indigo-600">ShopEasy</Link>
+          <Link to="/" className="text-3xl font-bold text-indigo-600">ShopEasy</Link>
           <nav className="flex space-x-6">
             <Link to="/" className="text-gray-600 hover:text-indigo-600">Home</Link>
             <Link to="/login" className="text-gray-600 hover:text-indigo-600">login</Link>
