@@ -10,6 +10,4 @@ Router.route('/:id')
       .get(ProductsController.getSingelProduct)
 
 
-
-
 module.exports = Router
