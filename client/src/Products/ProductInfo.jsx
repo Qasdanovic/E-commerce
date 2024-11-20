@@ -22,16 +22,13 @@ const ProductInfo = () => {
         setQuantity(prev => prev + 1)
     }
 
-    /**
-     * -------------------------------------------------------------------------------
-     */
+    //useEffect for update price ------------------------------------------------------
     useEffect(() => {
         setFinalPrice(product.price)
         setFinalPrice(parseFloat(product.price * quantity))
-    }, [quantity, finalPrice])
-    /**
-     * -------------------------------------------------------------------------------
-     */
+    }, [product.price, quantity])
+    //  -------------------------------------------------------------------------------
+
 
     /**
      * ---------------------------------------------------------------------------------
@@ -57,7 +54,7 @@ const ProductInfo = () => {
     
     <img src={product.images[0]} alt={product.title} className="w-full h-64 object-cover my-4 rounded" />
     <h1 className="text-2xl font-semibold text-gray-800 mb-2">{product.title}</h1>
-    <p className="text-lg text-gray-700 mb-4">{product.price}$</p>
+    <p className="text-lg text-gray-700 mb-4">{finalPrice}$</p>
     <p className="text-gray-600 mb-4">{product.description}</p>
 
     <div className="flex items-center mb-4">

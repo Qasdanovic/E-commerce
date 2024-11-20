@@ -39,6 +39,25 @@ export default function MainPage() {
       {/* Categories Section */}
       <Category />
 
+       {/* Search Section */}
+       <div className="container mx-auto px-6 mt-8 text-center">
+          <input
+            type="text"
+            placeholder="Search products..."
+            className="border border-gray-300 rounded-md px-4 py-2 w-2/3 md:w-1/3"
+          />
+          <button
+            className="ml-4 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+          >
+            Search
+          </button>
+          <button
+            className="ml-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700"
+          >
+            Reset
+          </button>
+        </div>
+
       {/* Featured Products Section */}
       <section className="py-16 bg-gray-100" id="products">
         <div className="container mx-auto px-6">
