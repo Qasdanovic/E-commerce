@@ -41,7 +41,7 @@ const UserController = {
         const passwordIsMatch = await bcrypt.compare(password, emailMatch.password) ;
         if(!passwordIsMatch) return res.status(400).json({ message : "password is not correct!" });
 
-        return res.status(200).json({ message : "you logged in"})
+        return res.status(200).json({ emailMatch })
     }
 }
 
