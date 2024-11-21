@@ -104,13 +104,24 @@ function SignupPage() {
 
     if (!hasError){
       try {
-        const request = await axios.post(`http://localhost:8080/users/add`, {
+        await axios.post(`http://localhost:8080/users/add`, {
          name,
          email,
          password,
          address,
          phone
        })
+
+       await axios.post("http://localhost:8080/cart/createCart", {
+        "userEmail": email,
+        "items": [
+            {
+                // "productId": "",
+                // "quantity": 0
+            }
+        ],
+        "totalPrice": 0
+    })
  
        toast.success('you sign in succesfully, log in now')
        setName('')

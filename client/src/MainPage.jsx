@@ -9,6 +9,7 @@ import Category from "./Categories/Category";
 
 export default function MainPage() {
     const [products, setProducts] = useState([])
+    const [search, setSearch] = useState('')
 
   useEffect(() => {
     try {
@@ -20,6 +21,20 @@ export default function MainPage() {
       console.log('error at getting products')
     }
   }, [])
+
+  const handelSearch = () => {
+    const productsSearched = products.filter(product => {
+      return product.title.toLowerCase().includes(search.toLowerCase())
+    })
+
+    setProducts(productsSearched)
+  }
+
+  const handelReset = () => {
+    axios.get("http://localhost:8080/products/")
+          .then((response) => setProducts(response.data))
+    setSearch('')
+  }
 
   return (
     <div className="App">
@@ -41,18 +56,23 @@ export default function MainPage() {
 
        {/* Search Section */}
        <div className="container mx-auto px-6 mt-8 text-center">
+       <h2 className="text-3xl font-bold text-gray-800 mb-8 text-center">Search Product</h2>
           <input
             type="text"
+            value={search}
+            onChange={(e) => { setSearch(e.target.value)}}
             placeholder="Search products..."
             className="border border-gray-300 rounded-md px-4 py-2 w-2/3 md:w-1/3"
           />
           <button
             className="ml-4 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700"
+            onClick={handelSearch}
           >
             Search
           </button>
           <button
             className="ml-4 bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700"
+            onClick={handelReset}
           >
             Reset
           </button>

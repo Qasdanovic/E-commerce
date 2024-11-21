@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Navbar from '../Navbar/Navbar';
+import { toast } from 'react-toastify';
+import Cookies from 'js-cookie'
 
 
 export default function Login() {
@@ -12,6 +14,24 @@ export default function Login() {
   
     const handleLogin = async (e) => {
       e.preventDefault();
+
+      try {
+        const req = await axios.post("http://localhost:8080/users/login", {
+          email,
+          password
+        })
+
+        toast.success(`welcome back mr/M ${req.data.emailMatch.name}`)
+        
+
+        Cookies.set("userId", req.data.emailMatch._id)
+        Cookies.set("email", req.data.emailMatch.email)
+
+        navigate('/')
+        
+      } catch (error) {
+        toast.error("email or password is invalid!")
+      }
       
     };
   return (
@@ -29,7 +49,6 @@ export default function Login() {
               className="w-full px-4 py-2 border rounded-lg mt-2 focus:outline-none focus:border-indigo-500"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required
             />
           </div>
           <div className="mt-4">
@@ -39,7 +58,6 @@ export default function Login() {
               className="w-full px-4 py-2 border rounded-lg mt-2 focus:outline-none focus:border-indigo-500"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
             />
           </div>
           <button

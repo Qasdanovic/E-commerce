@@ -5,17 +5,22 @@ import SignupPage from "./connection/SignUp";
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProductInfo from "./Products/ProductInfo";
+import Deconnect from "./connection/deconnect";
 
 
 function App() {
   
   return (
-    <BrowserRouter>
+    <BrowserRouter  future={{ 
+      v7_startTransition: true, 
+      v7_relativeSplatPath: true 
+    }}>
       <ToastContainer position="top-center" />
       <Routes>
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/deconnect" element={<Deconnect />} />
         <Route path="/productInfo/:productId" element={<ProductInfo />} />
       </Routes>
     </BrowserRouter>
