@@ -9,6 +9,9 @@ Router.route('/createCart')
 Router.route("/getCartInfo/:email")
       .get(CartController.getCartInfo) ;
 
+Router.route("/updateCart")
+      .put(CartController.UpdateCart)
+
 
 
 module.exports = Router

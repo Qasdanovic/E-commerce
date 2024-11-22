@@ -22,6 +22,20 @@ const CartController = {
         if(!CartInfo) return res.status(404).json({ message : "cart not found" });
 
         return res.status(200).json(CartInfo);
+    } ,
+
+    UpdateCart : async (req, res) => {
+        const {CartId, userEmail, items, totalPrice} = req.body;
+
+        const updateCart = await Cart.findByIdAndUpdate(CartId, {
+            userEmail,
+            items,
+            totalPrice
+        })
+        // console.log(updateCart)
+        if (!updateCart) return res.status(400).json({ message : "somthing went wrong"})
+
+        return res.status(200).json({ message : "updated successfully"})
     }
 }
 
