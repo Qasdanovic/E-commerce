@@ -13,9 +13,11 @@ export default function Navbar() {
     if(email){
       axios.get(`http://localhost:8080/cart/getCartInfo/${email}`).then((response) => {
         setUserCart(response.data)
+        console.log(userCart)
       })
     }
   }, [email])
+
 
 
   return (
@@ -30,7 +32,7 @@ export default function Navbar() {
             <Link to="#" className="text-gray-600 hover:text-indigo-600">Shop</Link>
             <Link to="#" className="text-gray-600 hover:text-indigo-600">About</Link>
             <Link to="#" className="text-gray-600 hover:text-indigo-600">Contact</Link>
-            <Link to="#" className="text-gray-600 hover:text-indigo-600">Cart (0)</Link>
+            <Link to="#" className="text-gray-600 hover:text-indigo-600">Cart ({userCart && userCart.items.length})</Link>
             <Link to="/deconnect" className="text-red-600 hover:text-red-400">
               deconnection
             </Link>

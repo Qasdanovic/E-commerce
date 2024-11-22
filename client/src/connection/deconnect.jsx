@@ -11,6 +11,7 @@ export default function Deconnect() {
         Cookies.remove("email")
         navigate('/')
         toast.success("disconnected successfully")
+        return;
     }, [])
     
 

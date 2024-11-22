@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import {toast} from 'react-toastify'
 import Navbar from "../Navbar/Navbar";
+import Cookies from "js-cookie"
 
 const ProductInfo = () => {
 
     const [product, setProduct] = useState([])
+    const [userCart, setUserCart] = useState([])
     const navigate = useNavigate()
     const {productId} = useParams()
+    const userEmail = Cookies.get('email')
 
     const [quantity, setQuantity] = useState(1)
     const [finalPrice, setFinalPrice] = useState(product.price && parseFloat(product.price))
@@ -25,9 +29,23 @@ const ProductInfo = () => {
     //useEffect for update price ------------------------------------------------------
     useEffect(() => {
         setFinalPrice(product.price)
-        setFinalPrice(parseFloat(product.price * quantity))
+        setFinalPrice(product.price * quantity)
     }, [product.price, quantity])
     //  -------------------------------------------------------------------------------
+
+    /**
+     * @description get Cart info 
+     * @method GET
+     */
+
+    useEffect(() => {
+      if(userEmail){
+        axios.get(`http://localhost:8080/cart/getCartInfo/${userEmail}`).then((response) => {
+          setUserCart(response.data)
+          
+        })
+      }
+    }, [userEmail])
 
 
     /**
@@ -42,6 +60,33 @@ const ProductInfo = () => {
     /**
      * ----------------------------------------------------------------------------------
      */
+
+    const handelAddToCart = async () => {
+      if(!userEmail) return toast.error("you have to ligin first")
+        try {
+              const items = [];
+              items.push(...userCart.items,{ productId , quantity})
+              console.log(items)
+
+              await axios.put(`http://localhost:8080/cart/updateCart`, {
+                "CartId" : userCart._id,
+                "userEmail" : userEmail,
+                "items" : items,
+                "totalPrice" : finalPrice
+            });
+
+            toast.success("added to cart successffuly")
+            navigate(-1)
+        } catch (error) {
+          return toast.error("sommething went wrong!")
+          
+        }
+
+
+
+        // console.log(userEmail,productId,quantity,finalPrice,userCart)
+      
+    }
   
   return (
     <div>
@@ -54,7 +99,7 @@ const ProductInfo = () => {
     
     <img src={product.images[0]} alt={product.title} className="w-full h-64 object-cover my-4 rounded" />
     <h1 className="text-2xl font-semibold text-gray-800 mb-2">{product.title}</h1>
-    <p className="text-lg text-gray-700 mb-4">{finalPrice}$</p>
+    <p className="text-lg text-gray-700 mb-4">{product.price}$</p>
     <p className="text-gray-600 mb-4">{product.description}</p>
 
     <div className="flex items-center mb-4">
@@ -73,7 +118,7 @@ const ProductInfo = () => {
       </button>
     </div>
     
-    <p className="text-lg font-semibold text-gray-800 mb-4">Total: {finalPrice}$</p>
+    <p className="text-lg font-semibold text-gray-800 mb-4">Total: {parseFloat(finalPrice.toFixed(2))}$</p>
     
     <div className="flex space-x-2 mt-4">
       {product.images.map((image, index) => (
@@ -82,7 +127,7 @@ const ProductInfo = () => {
     </div>
     
     <button
-      className="mt-6 bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-500">
+      className="mt-6 bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-500" onClick={handelAddToCart}>
       Add to Cart
     </button>
   </div>

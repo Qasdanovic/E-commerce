@@ -179,7 +179,8 @@ function SignupPage() {
           <div className="mt-4">
             <label className="block text-gray-700">phone :</label>
             <input
-              type="text"
+              type="tel"
+              pattern='0-[5-6-7]-{8}[0-9]'
               className="w-full px-4 py-2 border rounded-lg mt-2 focus:outline-none focus:border-indigo-500"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
