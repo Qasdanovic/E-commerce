@@ -87,6 +87,7 @@ export default function MainPage() {
               products.length > 0 && products.map((prod, index) => {
                 return (<Product prod={prod} key={index} />)
               })
+              
             }
           </div>
         </div>

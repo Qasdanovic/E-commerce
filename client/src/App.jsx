@@ -6,6 +6,7 @@ import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import ProductInfo from "./Products/ProductInfo";
 import Deconnect from "./connection/deconnect";
+import CartInfo from "./Cart/CartInfo";
 
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/Cart" element={<CartInfo />} />
         <Route path="/deconnect" element={<Deconnect />} />
         <Route path="/productInfo/:productId" element={<ProductInfo />} />
       </Routes>
