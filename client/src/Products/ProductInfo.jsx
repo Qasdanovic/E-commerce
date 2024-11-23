@@ -7,7 +7,7 @@ import Cookies from "js-cookie"
 
 const ProductInfo = () => {
 
-    const [product, setProduct] = useState([])
+    const [product, setProduct] = useState({})
     const [userCart, setUserCart] = useState([])
     const navigate = useNavigate()
     const {productId} = useParams()
@@ -41,8 +41,7 @@ const ProductInfo = () => {
     useEffect(() => {
       if(userEmail){
         axios.get(`http://localhost:8080/cart/getCartInfo/${userEmail}`).then((response) => {
-          setUserCart(response.data)
-          
+        setUserCart(response.data)
         })
       }
     }, [userEmail])
@@ -81,18 +80,13 @@ const ProductInfo = () => {
           return toast.error("sommething went wrong!")
           
         }
-
-
-
-        // console.log(userEmail,productId,quantity,finalPrice,userCart)
-      
     }
   
   return (
     <div>
       <Navbar />
         {
-            product.title ?
+            product.title && userCart ?
             (
                 <div className="bg-white p-6 rounded-lg shadow-md max-w-2xl mx-auto mt-10">
     <button onClick={() => navigate(-1)} className="text-indigo-600 hover:underline">Back to Products</button>
@@ -125,11 +119,18 @@ const ProductInfo = () => {
         <img key={index} src={image} loading="lazy" alt={`Product Image`} className="w-20 h-20 object-cover rounded" />
       ))}
     </div>
-    
+    {
+      userCart && userCart.items?.some(item => item.productId === productId) ? 
+      (
+        <div className="text-green-600 font-medium mt-2">Already added to cart</div>
+      ) : 
+      (
     <button
       className="mt-6 bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-500" onClick={handelAddToCart}>
       Add to Cart
     </button>
+      )
+    }
   </div>
             ) :
             (
