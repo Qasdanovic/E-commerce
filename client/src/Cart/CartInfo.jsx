@@ -9,11 +9,20 @@ export default function CartInfo() {
   const [cartProducts, setCartProducts] = useState([])
   const email = Cookies.get('email');
 
+  /**
+   * @desc get all products
+   * @method GET
+   */
   useEffect(() => {
     axios.get(`http://localhost:8080/products/`)
          .then((response) => setAllProducts(response.data))
   }, [])
 
+
+  /**
+   * @desc get all user cart products
+   * @method GET
+   */
   useEffect(() => {
     if (email) {
       axios
@@ -28,12 +37,24 @@ export default function CartInfo() {
     }
   }, [email]);
 
+  /**
+   * @desc filter cart products
+   * @function
+   */
   useEffect(() => {
     let productsWanted = allProducts.filter(prod => {
         return userCart.items?.some(item => item.productId === prod._id)
     })
     setCartProducts(productsWanted)
   }, [userCart, allProducts])
+
+
+  const getQuantity = (product) => {
+    let prodWanted = userCart?.items?.find(prod => {
+      return prod.productId === product._id
+    })
+    return prodWanted.quantity
+  }
 
   return (
     <div>
@@ -42,7 +63,7 @@ export default function CartInfo() {
         <h1 className="text-2xl font-bold mb-4">Cart Products:</h1>
         {userCart.items?.length > 0 ? (
           <div className="overflow-x-auto">
-            <table className="table-auto w-full border-collapse border border-gray-300">
+            <table className="table-auto w-full border-collapse border border-gray-300 text-center" >
               <thead>
                 <tr className="bg-gray-100">
                   <th className="border border-gray-300 px-4 py-2 text-left">#</th>
@@ -59,21 +80,24 @@ export default function CartInfo() {
                         <tr key={product.id}>
                             <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
                             <td className="border border-gray-300 px-4 py-2">
-                                <img src={product.images[0]} className='w-10' alt="product_image" />
+                                <img src={product.images[0]} style={{width : "100px", marginLeft : "70px"}} alt="product_image" />
                             </td>
                             <td className="border border-gray-300 px-4 py-2">{product.title}</td>
-                            <td className="border border-gray-300 px-4 py-2">{product.price}</td>
+                            <td className="border border-gray-300 px-4 py-2">{product.price} $</td>
                             <td className="border border-gray-300 px-4 py-2">
-                            {product.quantity}
+                            {getQuantity(product)}
                             </td>
-                            <td className="border border-gray-300 px-4 py-2">
-                            <button className="text-white bg-blue-500 hover:bg-blue-700 px-2 py-1 rounded">
-                                Edit
-                            </button>
-                            <button className="text-white bg-red-500 hover:bg-red-700 px-2 py-1 rounded ml-2">
-                                Delete
-                            </button>
+                            <td className="border px-4 py-2">
+                              <div className="flex justify-around items-center space-x-2">
+                                <button className="text-white  w-2/4 bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded transition duration-200 ease-in-out">
+                                  Edit
+                                </button>
+                                <button className="text-white w-2/4 bg-red-500 hover:bg-red-700 px-4 py-2 rounded transition duration-200 ease-in-out">
+                                  Delete
+                                </button>
+                              </div>
                             </td>
+
                         </tr>
 
                     )
