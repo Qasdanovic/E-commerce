@@ -122,12 +122,20 @@ const ProductInfo = () => {
     {
       userCart && userCart.items?.some(item => item.productId === productId) ? 
       (
-        <div className="text-green-600 font-medium mt-2">Already added to cart</div>
+        <div className="text-green-600 font-medium mt-2 flex">
+          <svg className="w-6 h-6 text-green-600 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M7.833 2c-.507 0-.98.216-1.318.576A1.92 1.92 0 0 0 6 3.89V21a1 1 0 0 0 1.625.78L12 18.28l4.375 3.5A1 1 0 0 0 18 21V3.889c0-.481-.178-.954-.515-1.313A1.808 1.808 0 0 0 16.167 2H7.833Z"/>
+          </svg>
+          Already added to cart
+        </div>
       ) : 
       (
     <button
-      className="mt-6 bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-500" onClick={handelAddToCart}>
-      Add to Cart
+      className="mt-6 bg-indigo-600 text-white px-6 py-2 rounded hover:bg-indigo-500 flex" onClick={handelAddToCart}>
+          <svg className="w-6 h-6 text-white-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7h-1M8 7h-.688M13 5v4m-2-2h4"/>
+          </svg>
+ Add to Cart
     </button>
       )
     }

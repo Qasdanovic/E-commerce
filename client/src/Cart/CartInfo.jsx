@@ -2,12 +2,15 @@ import React, { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
 import Navbar from '../Navbar/Navbar';
+import { useNavigate } from 'react-router-dom';
 
 export default function CartInfo() {
   const [userCart, setUserCart] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [cartProducts, setCartProducts] = useState([])
   const email = Cookies.get('email');
+
+  const navigate = useNavigate()
 
   /**
    * @desc get all products
@@ -49,11 +52,11 @@ export default function CartInfo() {
   }, [userCart, allProducts])
 
 
-  const getQuantity = (product) => {
+  const getProduct = (product) => {
     let prodWanted = userCart?.items?.find(prod => {
       return prod.productId === product._id
     })
-    return prodWanted.quantity
+    return prodWanted
   }
 
   return (
@@ -61,7 +64,7 @@ export default function CartInfo() {
       <Navbar />
       <div className="container mx-auto mt-20">
         <h1 className="text-2xl font-bold mb-4">Cart Products:</h1>
-        {userCart.items?.length > 0 ? (
+        {userCart.items?.length > 1 ? (
           <div className="overflow-x-auto">
             <table className="table-auto w-full border-collapse border border-gray-300 text-center" >
               <thead>
@@ -77,7 +80,7 @@ export default function CartInfo() {
               <tbody>
                 {
                     cartProducts && cartProducts.map((product, index) =>
-                        <tr key={product.id}>
+                        <tr key={index}>
                             <td className="border border-gray-300 px-4 py-2">{index + 1}</td>
                             <td className="border border-gray-300 px-4 py-2">
                                 <img src={product.images[0]} style={{width : "100px", marginLeft : "70px"}} alt="product_image" />
@@ -85,14 +88,17 @@ export default function CartInfo() {
                             <td className="border border-gray-300 px-4 py-2">{product.title}</td>
                             <td className="border border-gray-300 px-4 py-2">{product.price} $</td>
                             <td className="border border-gray-300 px-4 py-2">
-                            {getQuantity(product)}
+                            {getProduct(product).quantity}
                             </td>
                             <td className="border px-4 py-2">
                               <div className="flex justify-around items-center space-x-2">
-                                <button className="text-white  w-2/4 bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded transition duration-200 ease-in-out">
+                                <button
+                                className="text-white w-2/4 bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded transition duration-200 ease-in-out">
                                   Edit
                                 </button>
-                                <button className="text-white w-2/4 bg-red-500 hover:bg-red-700 px-4 py-2 rounded transition duration-200 ease-in-out">
+                                <button
+                                onClick={() => navigate(`/updateCart/${getProduct(product)._id}`)}
+                                className="text-white w-2/4 bg-red-500 hover:bg-red-700 px-4 py-2 rounded transition duration-200 ease-in-out">
                                   Delete
                                 </button>
                               </div>
@@ -107,7 +113,7 @@ export default function CartInfo() {
             </table>
           </div>
         ) : (
-          <p className="text-gray-500">Your cart is empty.</p>
+          <h1 className="text-gray-500">Your cart is empty.</h1>
         )}
       </div>
     </div>

@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import ProductInfo from "./Products/ProductInfo";
 import Deconnect from "./connection/deconnect";
 import CartInfo from "./Cart/CartInfo";
+import DeleteProduct from "./Cart/DeleteProduct";
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/Cart" element={<CartInfo />} />
         <Route path="/deconnect" element={<Deconnect />} />
         <Route path="/productInfo/:productId" element={<ProductInfo />} />
+        <Route path="/updateCart/:id" element={<DeleteProduct />} />
       </Routes>
     </BrowserRouter>
   );

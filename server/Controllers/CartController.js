@@ -33,7 +33,7 @@ const CartController = {
             totalPrice
         })
         // console.log(updateCart)
-        if (!updateCart) return res.status(400).json({ message : "somthing went wrong"})
+        if (!updateCart) return res.status(400).json({ message : "somthing went wrong lafan"})
 
         return res.status(200).json({ message : "updated successfully"})
     }
