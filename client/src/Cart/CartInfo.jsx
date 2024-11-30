@@ -32,7 +32,6 @@ export default function CartInfo() {
         .get(`http://localhost:8080/cart/getCartInfo/${email}`)
         .then((response) => {
           setUserCart(response.data);
-          console.log('Fetched cart data:', response.data);
         })
         .catch((error) => {
           console.error('Error fetching cart data:', error);
@@ -59,12 +58,17 @@ export default function CartInfo() {
     return prodWanted
   }
 
+
+
   return (
     <div>
       <Navbar />
       <div className="container mx-auto mt-20">
+        <div className='flex justify-between mb-20'>
         <h1 className="text-2xl font-bold mb-4">Cart Products:</h1>
-        {userCart.items?.length > 1 ? (
+        <h1 className="text-2xl font-bold mb-4">Total Price: <span className=' text-green-600'>{userCart.totalPrice} $</span></h1>
+        </div>
+        {userCart.items?.length ? (
           <div className="overflow-x-auto">
             <table className="table-auto w-full border-collapse border border-gray-300 text-center" >
               <thead>

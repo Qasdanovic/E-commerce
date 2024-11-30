@@ -34,7 +34,7 @@ export default function Navbar() {
               <svg className="w-6 h-6 text-green-600 dark:text-white" ariaHidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 4h1.5L9 16m0 0h8m-8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm8 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm-8.5-3h9.25L19 7H7.312"/>
               </svg>
-              <span>({userCart && userCart.items.length - 1})</span>
+              <span>({userCart && userCart.items.length})</span>
             </Link>
             <Link to="/deconnect" className="text-red-600 hover:text-red-400 flex">
               deconnection 

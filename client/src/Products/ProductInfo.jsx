@@ -64,14 +64,22 @@ const ProductInfo = () => {
       if(!userEmail) return toast.error("you have to ligin first")
         try {
               const items = [];
-              items.push(...userCart.items,{ productId , quantity})
+              items.push(...userCart.items,{ productId , quantity, finalPrice})
               console.log(items)
+
+              const calculeTotal = () => {
+                let total = 0
+                items.forEach(item => {
+                  total+= item.finalPrice
+                })
+                return total
+              }
 
               await axios.put(`http://localhost:8080/cart/updateCart`, {
                 "CartId" : userCart._id,
                 "userEmail" : userEmail,
                 "items" : items,
-                "totalPrice" : finalPrice
+                "totalPrice" : calculeTotal()
             });
 
             toast.success("added to cart successffuly")

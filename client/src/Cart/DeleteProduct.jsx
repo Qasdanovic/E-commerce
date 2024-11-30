@@ -31,13 +31,15 @@ export default function DeleteProduct() {
       useEffect(() => {
         if(!cartProducts || !cartProducts.items) return ;
         const filteredProducts = cartProducts?.items?.filter(prod => prod._id !== id )
-
+        const productToDelete = cartProducts?.items?.filter(prod => prod._id === id )
+        console.log(filteredProducts)
+        console.log(productToDelete)
         try {
           axios.put(`http://localhost:8080/cart/updateCart`, {
             "CartId" : cartProducts._id,
             "userEmail" : email,
             "items" : filteredProducts,
-            "totalPrice" : cartProducts.finalPrice
+            "totalPrice" : (cartProducts.totalPrice - productToDelete[0].finalPrice).toFixed(2)
         }).then(() => {
           navigate(-1)
         })

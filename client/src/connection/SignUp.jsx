@@ -114,12 +114,7 @@ function SignupPage() {
 
        await axios.post("http://localhost:8080/cart/createCart", {
         "userEmail": email,
-        "items": [
-            {
-                // "productId": "",
-                // "quantity": 0
-            }
-        ],
+        "items": [],
         "totalPrice": 0
     })
  
