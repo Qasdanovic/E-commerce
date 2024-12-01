@@ -8,13 +8,14 @@ import ProductInfo from "./Products/ProductInfo";
 import Deconnect from "./connection/deconnect";
 import CartInfo from "./Cart/CartInfo";
 import DeleteProduct from "./Cart/DeleteProduct";
+import ChangePassword from "./User/changePassword";
 
 
 function App() {
   
   return (
     <BrowserRouter  future={{ 
-      v7_startTransition: true, 
+      v7_startTransition: true,
       v7_relativeSplatPath: true 
     }}>
       <ToastContainer position="top-center" />
@@ -26,6 +27,7 @@ function App() {
         <Route path="/deconnect" element={<Deconnect />} />
         <Route path="/productInfo/:productId" element={<ProductInfo />} />
         <Route path="/updateCart/:id" element={<DeleteProduct />} />
+        <Route path="/changePassword" element={ <ChangePassword /> } />
       </Routes>
     </BrowserRouter>
   );

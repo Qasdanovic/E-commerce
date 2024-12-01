@@ -52,7 +52,7 @@ const UserController = {
         if(!findUser) return res.status(404).json({message : 'user not found !'});
 
         const isMatch = await bcrypt.compare(prevPassword, findUser.password)
-        if (!isMatch) return res.json({message : "password is NotMatch"})
+        if (!isMatch) return res.status(400).json({message : "password is Not Match"})
 
         const hashPassword = await bcrypt.hash(newPassword, 10)
 

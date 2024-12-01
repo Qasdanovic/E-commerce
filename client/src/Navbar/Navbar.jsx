@@ -44,7 +44,7 @@ export default function Navbar() {
                   </svg>
                 </span>
             </Link>
-            <Link to="/changePssword" className="text-blue-600 hover:text-blue-400 flex">
+            <Link to="/changePassword" className="text-blue-600 hover:text-blue-400 flex">
               <span>
               change password
               </span>
