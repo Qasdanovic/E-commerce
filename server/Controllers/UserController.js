@@ -42,6 +42,26 @@ const UserController = {
         if(!passwordIsMatch) return res.status(400).json({ message : "password is not correct!" });
 
         return res.status(200).json({ emailMatch })
+    } ,
+
+    changePassword : async (req, res) => {
+        const {id, email, prevPassword, newPassword } = req.body;
+
+        let findUser = await User.findOne({ email} );
+
+        if(!findUser) return res.status(404).json({message : 'user not found !'});
+
+        const isMatch = await bcrypt.compare(prevPassword, findUser.password)
+        if (!isMatch) return res.json({message : "password is NotMatch"})
+
+        const hashPassword = await bcrypt.hash(newPassword, 10)
+
+        let update = await User.findByIdAndUpdate(id, {password : hashPassword})
+
+        if(!update) return res.status(400).json({message : "error while updating password"})
+
+        return res.status(200).json({message : "password updated successfully"})
+
     }
 }
 

@@ -66,7 +66,12 @@ export default function CartInfo() {
       <div className="container mx-auto mt-20">
         <div className='flex justify-between mb-20'>
         <h1 className="text-2xl font-bold mb-4">Cart Products:</h1>
-        <h1 className="text-2xl font-bold mb-4">Total Price: <span className=' text-green-600'>{userCart.totalPrice} $</span></h1>
+          {
+            cartProducts.length>0 && <h1 className="text-2xl font-bold mb-4">Total Price: 
+            <span className=' text-green-600'>{userCart.totalPrice.toFixed(2)} $</span>
+          </h1>
+          }
+            
         </div>
         {userCart.items?.length ? (
           <div className="overflow-x-auto">

@@ -11,6 +11,9 @@ Router.route('/add')
 Router.route('/login')
       .post(UserController.logingIn)
 
+Router.route('/changePass')
+      .put(UserController.changePassword)
+
 
 
 module.exports = Router
